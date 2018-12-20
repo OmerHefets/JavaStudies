@@ -38,8 +38,8 @@ class Box {
     void print_numbers_in_box(int ... numbers) {
         for (int i = 0; i < numbers.length; i++) {
             System.out.print(numbers[i] + " ");
-            System.out.println();
         }
+        System.out.println();
     }
 
     void print_weight() {
@@ -57,13 +57,20 @@ class Cube extends Box {
         height = depth = width;
     }
 
+    // Method override
+    void print_numbers_in_box(int ... numbers) {
+        System.out.print("override!:");
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.print(numbers[i] + " ");
+        }
+        System.out.println();
+    }
 
     void print_cube_volume() {
         System.out.println("The volume of this cube is: " + volume());
     }
 
 }
-
 
 
 public class BasicClass {
@@ -84,14 +91,24 @@ public class BasicClass {
         System.out.println("The volume of the " + my_first_box.name + " when doubled is: " +
                 my_first_box.volume(2));
 
-        //Implementing vararg
-        int a = 5, b = 6, c = 7, zz = 99;
-        my_first_box.print_numbers_in_box(a, b, c, zz);
-
         Cube my_first_cube = new Cube(5);
         Cube my_second_cube = new Cube(my_first_box);
         my_first_cube.print_cube_volume();
         my_second_cube.print_cube_volume();
+
+        //Implementing vararg
+        int a = 5, b = 6, c = 7, zz = 99;
+        my_first_box.print_numbers_in_box(a, b, c, zz);
+        //Implementing method override
+        my_first_cube.print_numbers_in_box(a, b, c, zz);
+
+        //Run-time polymorphism
+        Box box_ref;
+        box_ref = my_first_box;
+        box_ref.print_numbers_in_box(a, b, c, zz);
+        box_ref = my_first_cube;
+        box_ref.print_numbers_in_box(a, b, c, zz);
+        System.out.println(box_ref);
     }
 }
 
